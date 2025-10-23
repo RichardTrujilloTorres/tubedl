@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tubedl"
+version = "0.1.0"
+description = "A simple command-line YouTube video & audio downloader"
+authors = [{ name = "Your Name", email = "you@example.com" }]
+dependencies = [
+    "yt-dlp",
+    "click",
+    "rich"
+]
+
+[project.scripts]
+tubedl = "tubedl.cli:main"
