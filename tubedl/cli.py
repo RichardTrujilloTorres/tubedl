@@ -4,6 +4,7 @@ import yt_dlp
 import click
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
+from tubedl.utils import normalize_youtube_url
 
 console = Console()
 
@@ -43,6 +44,7 @@ def main(url, format, output, quiet):
             task = progress.add_task("Downloading...", start=False)
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 progress.start_task(task)
+                url = normalize_youtube_url(url)
                 ydl.download([url])
 
         if not quiet:
