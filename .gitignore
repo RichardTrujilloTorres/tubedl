@@ -1,0 +1,33 @@
+.idea/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# PyInstaller output
+*.spec
+
+# Local env / config
+.env
+*.env
+
+# Logs
+*.log
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Jupyter temp files (optional)
+*.ipynb_checkpoints/
