@@ -32,16 +32,11 @@ jobs:
         run: |
           pytest --maxfail=1 --disable-warnings -q --cov=tubedl --cov-report=xml
 
-      - name: 🔍 SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
+      - name: 🔍 SonarCloud Scan (with Quality Gate)
+        uses: SonarSource/sonarcloud-github-action@v2
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: 🚦 Quality Gate Check
-        uses: SonarSource/sonarcloud-quality-gate-action@master
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   version-bump:
     name: 🔖 Version & Changelog
