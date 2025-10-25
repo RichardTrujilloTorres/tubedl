@@ -30,6 +30,7 @@ jobs:
 
       - name: 🧪 Run tests with coverage
         run: |
+          pip install -e .
           pytest --maxfail=1 --disable-warnings -q --cov=tubedl --cov-report=xml
 
       - name: 🔍 SonarCloud Scan (with Quality Gate)
