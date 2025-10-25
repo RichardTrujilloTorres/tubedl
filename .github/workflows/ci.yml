@@ -63,7 +63,7 @@ jobs:
 
       - name: 🪄 Bump version & update changelog
         run: |
-          cz bump --yes --changelog
+          cz bump --yes --changelog || echo "No version bump needed"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
