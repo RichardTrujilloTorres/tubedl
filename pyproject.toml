@@ -13,5 +13,8 @@ dependencies = [
     "rich"
 ]
 
+[project.optional-dependencies]
+dev = ["commitizen"]
+
 [project.scripts]
 tubedl = "tubedl.cli:main"
