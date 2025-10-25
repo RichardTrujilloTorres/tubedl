@@ -8,7 +8,7 @@ It supports videos, shorts, and playlists — with clean CLI options, progress i
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 ![Python](https://img.shields.io/badge/python-3.9+-blue.svg)
 ![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Linux%20%7C%20Windows-lightgrey.svg)
-![Build Status](https://github.com/yourusername/tubedl/actions/workflows/ci.yml/badge.svg)
+![Build Status](https://github.com/RichardTrujilloTorres/tubedl/actions/workflows/ci.yml/badge.svg)
 
 ---
 
@@ -28,7 +28,7 @@ It supports videos, shorts, and playlists — with clean CLI options, progress i
 ### 1️⃣ Clone the repo
 
 ```bash
-git clone https://github.com/yourusername/tubedl.git
+git clone https://github.com/RichardTrujilloTorres/tubedl.git
 cd tubedl
 ```
 
