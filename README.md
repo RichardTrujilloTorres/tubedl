@@ -1,7 +1,9 @@
-# 🎬 tubedl
+from pathlib import Path
+
+readme_content = """# 🎬 tubedl
 
 `tubedl` is a simple yet powerful **command-line YouTube downloader** built with Python and [yt-dlp](https://github.com/yt-dlp/yt-dlp).  
-It supports videos, shorts, and playlists — with clean CLI options, progress indicators, and audio conversion via FFmpeg.
+It supports videos, shorts, and playlists — with clean CLI options, progress indicators, audio conversion via FFmpeg, and now **authentication for age-restricted or private videos**.
 
 ---
 
@@ -19,7 +21,8 @@ It supports videos, shorts, and playlists — with clean CLI options, progress i
 ✅ Supports short links (`youtu.be/...`) and Shorts (`/shorts/...`)  
 ✅ Automatic URL normalization and error handling  
 ✅ Clean terminal interface with [Rich](https://github.com/Textualize/rich)  
-✅ Cross-platform (macOS, Linux, Windows)
+✅ Cross-platform (macOS, Linux, Windows)  
+✅ 🔐 **Download age-restricted or private videos** using cookies or your logged-in browser session  
 
 ---
 
@@ -38,7 +41,7 @@ cd tubedl
 python -m venv .venv
 source .venv/bin/activate       # macOS/Linux
 # OR
-.venv\Scripts\activate          # Windows
+.venv\\Scripts\\activate          # Windows
 ```
 
 ### 3️⃣ Install dependencies
@@ -83,6 +86,26 @@ tubedl "https://www.youtube.com/playlist?list=PLhit70zW35SEyhtF0zE7UTDPB9VGM4ngN
 tubedl "https://www.youtube.com/watch?v=xjiJYT8Uu38&list=PLhit70zW35SEyhtF0zE7UTDPB9VGM4ngN" -f mp4 -o ~/Videos
 ```
 
+### 🔐 Download age-restricted or private videos
+
+`tubedl` supports **authenticated downloads** via:
+- A `cookies.txt` file exported from your logged-in browser  
+- Your existing browser session (no manual export required)
+
+#### Using a cookies file
+```bash
+tubedl "https://www.youtube.com/watch?v=VIDEO_ID" \
+  --cookies ~/Downloads/youtube_cookies.txt -o ~/Videos
+```
+
+#### Using your browser session directly
+```bash
+tubedl "https://www.youtube.com/watch?v=VIDEO_ID" \
+  --cookies-from-browser chrome -o ~/Videos
+```
+
+Supported browsers: `chrome`, `brave`, `firefox`, `edge`, `safari`
+
 ---
 
 ## ⚙️ Options
@@ -93,6 +116,8 @@ tubedl "https://www.youtube.com/watch?v=xjiJYT8Uu38&list=PLhit70zW35SEyhtF0zE7UT
 | `-o, --output` | Output directory |
 | `-p, --playlist` | Download the full playlist (if URL includes `list=`) |
 | `-q, --quiet` | Suppress progress output |
+| `--cookies PATH` | Path to cookies.txt for age-restricted/private videos |
+| `--cookies-from-browser [chrome\\|brave\\|firefox\\|edge\\|safari]` | Load cookies from a local browser session |
 | `--help` | Show CLI help |
 
 ---
@@ -161,18 +186,18 @@ cz changelog
 - Ensuring consistent packaging  
 - Auto-generating changelogs on release
 
-A sample workflow will be located at:
+A sample workflow is located at:
 ```
 .github/workflows/ci.yml
 ```
 
-Badge will display current CI status at the top of this README.
+Badge at the top of this README shows current CI status.
 
 ---
 
 ## 📜 License
 
-MIT License © 2025 [Your Name]
+MIT License © 2025 [Richard Trujillo Torres](https://github.com/RichardTrujilloTorres)
 
 ---
 
@@ -183,3 +208,8 @@ MIT License © 2025 [Your Name]
 - [Rich](https://github.com/Textualize/rich) — beautiful terminal output  
 
 ---
+"""
+
+readme_path = Path("/mnt/data/README.md")
+readme_path.write_text(readme_content)
+readme_path
