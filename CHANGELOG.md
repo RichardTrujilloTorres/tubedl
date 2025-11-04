@@ -1,5 +1,14 @@
 ## Unreleased
 
+## v0.7.0 (2025-10-26)
+
+### Feat
+
+- **cli**: add authentication support for age-restricted and private videos via `--cookies` and `--cookies-from-browser`
+- **cli**: support Chrome, Brave, Firefox, Edge, and Safari for browser-based cookies
+- **tests**: mock `yt_dlp` to avoid network calls during CLI testing and ensure full offline coverage
+- **docs**: update README with authentication usage and examples
+
 ## v0.6.1 (2025-10-25)
 
 ### Fix
