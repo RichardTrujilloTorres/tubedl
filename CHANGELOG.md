@@ -1,5 +1,13 @@
 ## Unreleased
 
+## v0.8.0 (2025-10-26)
+
+### Feat
+
+- **cli**: add `--thumbnail` flag to download high-resolution video thumbnails
+- **cli**: integrate thumbnail download workflow with existing Rich-based console output
+- **deps**: include `requests` dependency for HTTP thumbnail retrieval
+
 ## v0.7.0 (2025-10-26)
 
 ### Feat
