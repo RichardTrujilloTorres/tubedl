@@ -2,6 +2,7 @@ import os
 import sys
 import yt_dlp
 import click
+import requests
 from urllib.parse import urlparse, parse_qs
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
@@ -33,14 +34,45 @@ def is_playlist_url(url: str) -> bool:
     type=click.Choice(["chrome", "firefox", "edge", "safari", "brave"]),
     help="Load cookies automatically from a local browser session",
 )
-def main(url, format, output, playlist, quiet, cookies, cookies_from_browser):
-    """tubedl — simple YouTube video & audio downloader with restricted video support."""
+@click.option("--thumbnail", is_flag=True, help="Download only the video thumbnail (no video/audio)")
+def main(url, format, output, playlist, quiet, cookies, cookies_from_browser, thumbnail):
+    """tubedl — simple YouTube video & audio downloader with restricted video and thumbnail support."""
 
     os.makedirs(output, exist_ok=True)
     url = normalize_youtube_url(url)
     is_playlist = is_playlist_url(url)
 
-    # Configure yt-dlp options
+    # 🔹 Handle thumbnail-only mode
+    if thumbnail:
+        parsed = urlparse(url)
+        query = parse_qs(parsed.query)
+        video_id = query.get("v", [None])[0]
+
+        if not video_id:
+            console.print("[red]❌ Could not extract video ID from URL.[/red]")
+            sys.exit(1)
+
+        thumb_urls = [
+            f"https://img.youtube.com/vi/{video_id}/maxresdefault.jpg",
+            f"https://img.youtube.com/vi/{video_id}/hqdefault.jpg",
+        ]
+        thumb_path = os.path.join(output, f"{video_id}_thumbnail.jpg")
+
+        try:
+            for thumb_url in thumb_urls:
+                r = requests.get(thumb_url, stream=True)
+                if r.status_code == 200:
+                    with open(thumb_path, "wb") as f:
+                        for chunk in r.iter_content(1024):
+                            f.write(chunk)
+                    console.print(f"[green]✅ Thumbnail downloaded:[/green] {thumb_path}")
+                    sys.exit(0)
+            console.print("[red]❌ No thumbnail found for this video.[/red]")
+        except Exception as e:
+            console.print(f"[bold red]❌ Error downloading thumbnail:[/bold red] {e}")
+        sys.exit(1)
+
+    # 🔹 Configure yt-dlp options
     ydl_opts = {
         "format": "bestaudio/best" if format == "mp3" else format,
         "outtmpl": os.path.join(
@@ -56,13 +88,13 @@ def main(url, format, output, playlist, quiet, cookies, cookies_from_browser):
         "noplaylist": not playlist,
     }
 
-    # Add cookie support
+    # 🔹 Add cookie support
     if cookies:
         ydl_opts["cookiefile"] = cookies
     elif cookies_from_browser:
         ydl_opts["cookiesfrombrowser"] = (cookies_from_browser,)
 
-    # Add MP3 audio extraction
+    # 🔹 Add MP3 audio extraction
     if format == "mp3":
         ydl_opts["postprocessors"].append(
             {
