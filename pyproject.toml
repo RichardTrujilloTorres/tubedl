@@ -10,7 +10,8 @@ authors = [{ name = "Your Name", email = "you@example.com" }]
 dependencies = [
     "yt-dlp",
     "click",
-    "rich"
+    "rich",
+    "requests"
 ]
 
 [project.optional-dependencies]
